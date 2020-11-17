@@ -5,7 +5,7 @@
 ## Parameters:
 ##   x: invertible matrix
 makeCacheMatrix <- function(x = matrix()) {
-  print(class(x))
+
   # basic error checking to make sure we at least have a square matrix
   stopifnot("Parameter is not a matrix" = is.matrix(x))
   stopifnot("Parameter is not a square matrix" = nrow(x) == ncol(x))
@@ -30,9 +30,11 @@ makeCacheMatrix <- function(x = matrix()) {
   
   ## revealing pattern returns list of functions, 
   ## allows private functions to be revealed as public functions
-  list(set = set, get = get,
-       set_inverse = set_inverse,
-       get_inverse = get_inverse)
+  list(
+    set = set, get = get,
+    set_inverse = set_inverse,
+    get_inverse = get_inverse
+  )
 }
 
 ## Function to solve the inverse matrix from a cache matrix. Returns the cached
@@ -42,6 +44,7 @@ makeCacheMatrix <- function(x = matrix()) {
 ##   x: cache matrix, a square invertable matrix.
 ##   ...: additional parameters to pass to the "solve" function.
 cacheSolve <- function(x, ...) {
+  
   # basic error checking to make sure we at least have a matrix created with makeCacheMatrix
   stopifnot("Paramater can not be NULL or NA" = (!is.na(x) && !is.null(x)))
   stopifnot("Parameter was not created with makeCacheMatrix" = ("get_inverse" %in% names(x)))
@@ -62,5 +65,5 @@ cacheSolve <- function(x, ...) {
       m
       },
     error = function(c) paste("Solve returned an error - ", c)
-    )
+  )
 }
